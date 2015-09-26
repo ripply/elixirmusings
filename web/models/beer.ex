@@ -2,7 +2,6 @@ defmodule Beermusings.Beer do
   use Beermusings.Web, :model
 
   schema "beers" do
-    field :brewery_id, :integer
     field :name, :string
     field :cat_id, :integer
     field :style_id, :integer
@@ -14,6 +13,7 @@ defmodule Beermusings.Beer do
     field :descript, :string
     field :add_user, :integer
     field :last_mod, Ecto.DateTime
+    belongs_to :brewery, Beermusings.Brewery
 
     timestamps
   end

@@ -15,6 +15,7 @@ defmodule Beermusings.Brewery do
     field :descript, :string
     field :add_user, :integer
     field :last_mod, Ecto.DateTime
+    has_many :beers, Beermusings.Beer
 
     timestamps
   end
