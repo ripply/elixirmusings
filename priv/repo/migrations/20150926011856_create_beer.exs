@@ -12,7 +12,7 @@ defmodule Beermusings.Repo.Migrations.CreateBeer do
       add :srm, :float
       add :upc, :integer
       add :filepath, :string
-      add :descript, :string
+      add :descript, :text
       add :add_user, :integer
       add :last_mod, :datetime
 
