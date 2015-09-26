@@ -1,0 +1,68 @@
+<h2>Show beer</h2>
+
+<ul>
+
+  <li>
+    <strong>Brewery:</strong>
+    <%= @beer.brewery_id %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @beer.name %>
+  </li>
+
+  <li>
+    <strong>Cat:</strong>
+    <%= @beer.cat_id %>
+  </li>
+
+  <li>
+    <strong>Style:</strong>
+    <%= @beer.style_id %>
+  </li>
+
+  <li>
+    <strong>Abv:</strong>
+    <%= @beer.abv %>
+  </li>
+
+  <li>
+    <strong>Ibu:</strong>
+    <%= @beer.ibu %>
+  </li>
+
+  <li>
+    <strong>Srm:</strong>
+    <%= @beer.srm %>
+  </li>
+
+  <li>
+    <strong>Upc:</strong>
+    <%= @beer.upc %>
+  </li>
+
+  <li>
+    <strong>Filepath:</strong>
+    <%= @beer.filepath %>
+  </li>
+
+  <li>
+    <strong>Descript:</strong>
+    <%= @beer.descript %>
+  </li>
+
+  <li>
+    <strong>Add user:</strong>
+    <%= @beer.add_user %>
+  </li>
+
+  <li>
+    <strong>Last mod:</strong>
+    <%= @beer.last_mod %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: beer_path(@conn, :edit, @beer) %>
+<%= link "Back", to: beer_path(@conn, :index) %>

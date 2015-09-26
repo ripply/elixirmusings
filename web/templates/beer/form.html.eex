@@ -1,0 +1,76 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below:</p>
+      <ul>
+        <%= for {attr, message} <- f.errors do %>
+          <li><%= humanize(attr) %> <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :brewery_id, "Brewery", class: "control-label" %>
+    <%= number_input f, :brewery_id, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :name, "Name", class: "control-label" %>
+    <%= text_input f, :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :cat_id, "Cat", class: "control-label" %>
+    <%= number_input f, :cat_id, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :style_id, "Style", class: "control-label" %>
+    <%= number_input f, :style_id, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :abv, "Abv", class: "control-label" %>
+    <%= number_input f, :abv, step: "any", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :ibu, "Ibu", class: "control-label" %>
+    <%= number_input f, :ibu, step: "any", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :srm, "Srm", class: "control-label" %>
+    <%= number_input f, :srm, step: "any", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :upc, "Upc", class: "control-label" %>
+    <%= number_input f, :upc, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :filepath, "Filepath", class: "control-label" %>
+    <%= text_input f, :filepath, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :descript, "Descript", class: "control-label" %>
+    <%= text_input f, :descript, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :add_user, "Add user", class: "control-label" %>
+    <%= number_input f, :add_user, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :last_mod, "Last mod", class: "control-label" %>
+    <%= datetime_select f, :last_mod, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

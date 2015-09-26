@@ -1,0 +1,48 @@
+<h2>Listing beers</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Brewery</th>
+      <th>Name</th>
+      <th>Cat</th>
+      <th>Style</th>
+      <th>Abv</th>
+      <th>Ibu</th>
+      <th>Srm</th>
+      <th>Upc</th>
+      <th>Filepath</th>
+      <th>Descript</th>
+      <th>Add user</th>
+      <th>Last mod</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for beer <- @beers do %>
+    <tr>
+      <td><%= beer.brewery_id %></td>
+      <td><%= beer.name %></td>
+      <td><%= beer.cat_id %></td>
+      <td><%= beer.style_id %></td>
+      <td><%= beer.abv %></td>
+      <td><%= beer.ibu %></td>
+      <td><%= beer.srm %></td>
+      <td><%= beer.upc %></td>
+      <td><%= beer.filepath %></td>
+      <td><%= beer.descript %></td>
+      <td><%= beer.add_user %></td>
+      <td><%= beer.last_mod %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: beer_path(@conn, :show, beer), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: beer_path(@conn, :edit, beer), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: beer_path(@conn, :delete, beer), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New beer", to: beer_path(@conn, :new) %>
