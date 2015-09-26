@@ -1,0 +1,6 @@
+<h2>New brewery</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: brewery_path(@conn, :create) %>
+
+<%= link "Back", to: brewery_path(@conn, :index) %>

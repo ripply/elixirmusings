@@ -18,6 +18,7 @@ defmodule Beermusings.Router do
 
     get "/", PageController, :index
     resources "/beers", BeerController
+    resources "/brewery", BreweryController
   end
 
   # Other scopes may use custom stacks.

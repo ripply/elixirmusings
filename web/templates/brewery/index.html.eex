@@ -1,0 +1,50 @@
+<h2>Listing brewery</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address1</th>
+      <th>Address2</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Code</th>
+      <th>Country</th>
+      <th>Phone</th>
+      <th>Website</th>
+      <th>Filepath</th>
+      <th>Descript</th>
+      <th>Add user</th>
+      <th>Last mod</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for brewery <- @brewery do %>
+    <tr>
+      <td><%= brewery.name %></td>
+      <td><%= brewery.address1 %></td>
+      <td><%= brewery.address2 %></td>
+      <td><%= brewery.city %></td>
+      <td><%= brewery.state %></td>
+      <td><%= brewery.code %></td>
+      <td><%= brewery.country %></td>
+      <td><%= brewery.phone %></td>
+      <td><%= brewery.website %></td>
+      <td><%= brewery.filepath %></td>
+      <td><%= brewery.descript %></td>
+      <td><%= brewery.add_user %></td>
+      <td><%= brewery.last_mod %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: brewery_path(@conn, :show, brewery), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: brewery_path(@conn, :edit, brewery), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: brewery_path(@conn, :delete, brewery), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New brewery", to: brewery_path(@conn, :new) %>

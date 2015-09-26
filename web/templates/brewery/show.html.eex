@@ -1,0 +1,73 @@
+<h2>Show brewery</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @brewery.name %>
+  </li>
+
+  <li>
+    <strong>Address1:</strong>
+    <%= @brewery.address1 %>
+  </li>
+
+  <li>
+    <strong>Address2:</strong>
+    <%= @brewery.address2 %>
+  </li>
+
+  <li>
+    <strong>City:</strong>
+    <%= @brewery.city %>
+  </li>
+
+  <li>
+    <strong>State:</strong>
+    <%= @brewery.state %>
+  </li>
+
+  <li>
+    <strong>Code:</strong>
+    <%= @brewery.code %>
+  </li>
+
+  <li>
+    <strong>Country:</strong>
+    <%= @brewery.country %>
+  </li>
+
+  <li>
+    <strong>Phone:</strong>
+    <%= @brewery.phone %>
+  </li>
+
+  <li>
+    <strong>Website:</strong>
+    <%= @brewery.website %>
+  </li>
+
+  <li>
+    <strong>Filepath:</strong>
+    <%= @brewery.filepath %>
+  </li>
+
+  <li>
+    <strong>Descript:</strong>
+    <%= @brewery.descript %>
+  </li>
+
+  <li>
+    <strong>Add user:</strong>
+    <%= @brewery.add_user %>
+  </li>
+
+  <li>
+    <strong>Last mod:</strong>
+    <%= @brewery.last_mod %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: brewery_path(@conn, :edit, @brewery) %>
+<%= link "Back", to: brewery_path(@conn, :index) %>
