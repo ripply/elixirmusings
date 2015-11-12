@@ -3,6 +3,7 @@ use Mix.Config
 config :beermusings, Beermusings.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
+  ssl: true,
   pool_size: 2
 
 # For production, we configure the host to read the PORT
