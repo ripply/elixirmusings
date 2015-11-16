@@ -19,6 +19,11 @@ defmodule Beermusings.Router do
     get "/", PageController, :index
     resources "/beers", BeerController
     resources "/brewery", BreweryController
+    resources "/comment", CommentController
+    resources "/posts", PostController do
+      post "/comment", CommentController, :new
+    end
+
   end
 
   # Other scopes may use custom stacks.
