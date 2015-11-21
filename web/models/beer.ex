@@ -15,6 +15,7 @@ defmodule Beermusings.Beer do
     field :last_mod, Ecto.DateTime
     belongs_to :brewery, Beermusings.Brewery
 
+    has_many :posts, Beermusings.Post
     timestamps
   end
 

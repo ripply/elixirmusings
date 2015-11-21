@@ -14,8 +14,12 @@
 
   <li>
     <strong>Beer:</strong>
-    <%= @post.beer_id %>
+    <%= @post.beer.name %>
   </li>
+
+  <%= for comment <- @post.comments do %>
+      <p><%= comment.content %></p>
+  <% end %>
 
 </ul>
 

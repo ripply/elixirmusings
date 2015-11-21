@@ -11,24 +11,34 @@ defmodule Beermusings.CommentController do
     render(conn, "index.html", comments: comments)
   end
 
-  def new(conn, _params) do
-    changeset = Comment.changeset(%Comment{})
-    render(conn, "new.html", changeset: changeset)
+  def new(conn, %{"post_id" => post_id}) do
+    {post_id_int, _} = Integer.parse(post_id)
+    invalidPostId = true
+    if is_integer(post_id_int) do
+      post = Repo.get(Post, post_id)
+      unless is_nil(post) do
+        invalidPostId = false
+        changeset = Comment.changeset(%Comment{})
+        render(conn, "new.html", %{changeset: changeset, post_id: post_id, post: post})
+      end
+    end
+    if invalidPostId do
+      conn
+      |> put_flash(:error, "Unknown post.")
+      |> redirect(to: "/")
+    end
   end
 
   def create(conn, %{"comment" => comment_params, "post_id" => post_id}) do
-    IO.inspect(comment_params)
-    IO.inspect(post_id)
-    IO.puts("HEY!!!")
     post = Repo.get(Post, post_id)
-    changeset = Model.build(post, :comments)
-      |> Comment.changeset(%Comment{}, comment_params)
+    changeset = Ecto.Model.build(post, :comments)
+      |> Comment.changeset(comment_params)
 
     case Repo.insert(changeset) do
       {:ok, _comment} ->
         conn
         |> put_flash(:info, "Comment created successfully.")
-        |> redirect(to: comment_path(conn, :index))
+        |> redirect(to: post_path(conn, post_id, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

@@ -17,11 +17,15 @@ defmodule Beermusings.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/beers", BeerController
+    resources "/beers", BeerController do
+      post "/post", PostController, :create
+      get "/post", PostController, :new
+    end
     resources "/brewery", BreweryController
     resources "/comment", CommentController
     resources "/posts", PostController do
-      post "/comment", CommentController, :new
+      post "/comment", CommentController, :create
+      get "/comment", CommentController, :new
     end
 
   end
