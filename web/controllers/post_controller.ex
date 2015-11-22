@@ -1,13 +1,18 @@
 defmodule Beermusings.PostController do
   use Beermusings.Web, :controller
 
+  import Ecto.Query, only: [from: 2]
+
   alias Beermusings.Post
   alias Beermusings.Beer
 
   plug :scrub_params, "post" when action in [:create, :update]
 
   def index(conn, _params) do
-    posts = Repo.all(Post)
+    query = from post in Post,
+    order_by: post.inserted_at
+    
+    posts = Repo.all(query)
     |> Repo.preload(:comments)
     |> Repo.preload(:beer)
     render(conn, "index.html", posts: posts)

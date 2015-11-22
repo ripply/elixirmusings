@@ -1,21 +1,20 @@
-<h2>Listing posts</h2>
+<h2>Posts:</h2>
 
 <table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Beer</th>
-
-      <th></th>
-    </tr>
-  </thead>
   <tbody>
 <%= for post <- @posts do %>
     <tr>
-      <td><%= post.title %></td>
-      <td><%= post.content %></td>
+      <%= if post.beer do %>
+      <td><%= post.beer.name %></td>
+      <% else %>
       <td><%= post.beer_id %></td>
+      <% end %>
+      <td><%= post.title %></td>
+      <%= if post.comments do %>
+      <% commentCount = List.foldl(post.comments, 0, fn (comment, acc) -> acc + 1 end) %>
+      <td><%= commentCount %> comment<%= if commentCount > 1 do "s" end %></td>
+      <% end %>
+      <td><%= Ecto.DateTime.to_string(post.inserted_at) %></td>
 
       <td class="text-right">
         <%= link "Show", to: post_path(@conn, :show, post), class: "btn btn-default btn-xs" %>

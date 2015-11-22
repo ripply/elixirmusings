@@ -14,7 +14,9 @@
 
   <li>
     <strong>Beer:</strong>
+    <%= if @post.beer do %>
     <%= @post.beer.name %>
+    <% end %>
   </li>
 
   <%= for comment <- @post.comments do %>
