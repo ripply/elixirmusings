@@ -5,8 +5,8 @@
 <%= for post <- @posts do %>
     <tr>
       <td>
-        <a href="<%= post_vote_path(@conn, :upvote, post.post_id) %>">upvote</a>
-        <a href="<%= post_vote_path(@conn, :downvote, post.post_id) %>">downvote</a>
+        <a href="<%= post_vote_path(@conn, :upvote, post.id) %>">upvote</a>
+        <a href="<%= post_vote_path(@conn, :downvote, post.id) %>">downvote</a>
       </td>
       <%= if post.beer do %>
       <td><%= post.beer.name %></td>

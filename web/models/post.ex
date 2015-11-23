@@ -6,7 +6,8 @@ defmodule Beermusings.Post do
     field :content, :string
     belongs_to :beer, Beermusings.Beer
 
-    has_many :comments, Beermusings.Comment, foreign_key: :post_id
+    has_many :comments, Beermusings.Comment
+    has_many :votes, Beermusings.Vote
     timestamps
   end
 

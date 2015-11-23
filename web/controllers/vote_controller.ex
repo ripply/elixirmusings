@@ -21,9 +21,9 @@ defmodule Beermusings.VoteController do
     end
   end
 
-  def vote(conn, %{"post_id" => post_id, "weight" => weight}) do
+  def vote(conn, %{"post_id": post_id, "weight": weight}) do
     post = Repo.get(Post, post_id)
-    changeset = Ecto.Model.build(post, :vote)
+    changeset = Ecto.Model.build(post, :votes)
     |> Vote.changeset(%{weight: weight})
 
     case Repo.insert(changeset) do
