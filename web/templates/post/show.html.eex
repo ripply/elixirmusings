@@ -1,29 +1,29 @@
-<h2>Show post</h2>
+<h2><%= @post.title %></h2>
+<h3><%= @post.content %></h3>
 
-<ul>
+<strong>Beer:</strong>
+<%= if @post.beer do %>
+<%= @post.beer.name %>
+<% end %>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @post.title %>
-  </li>
-
-  <li>
-    <strong>Content:</strong>
-    <%= @post.content %>
-  </li>
-
-  <li>
-    <strong>Beer:</strong>
-    <%= if @post.beer do %>
-    <%= @post.beer.name %>
-    <% end %>
-  </li>
-
-  <%= for comment <- @post.comments do %>
-      <p><%= comment.content %></p>
+<div class="comments">
+  <%= if @post.comments && List.foldl(@post.comments, 0, fn(x, acc) -> acc + 1 end) > 0 do %>
+  <strong>Comments</strong>
+  <ul>
+      <%= for comment <- @post.comments do %>
+          <li><%= comment.content %></li>
+      <% end %>
+  </ul>
+  <%= else %>
+      No comments
   <% end %>
+</div>
+<div class="new_comment">
+  <%= render "form_comment.html", changeset: @comment_changeset,
+      action: post_comment_path(@conn, :create, @post.id)
+      %>
+</div>
 
-</ul>
 
 <%= link "Edit", to: post_path(@conn, :edit, @post) %>
 <%= link "Back", to: post_path(@conn, :index) %>

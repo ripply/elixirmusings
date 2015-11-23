@@ -5,6 +5,7 @@ defmodule Beermusings.PostController do
 
   alias Beermusings.Post
   alias Beermusings.Beer
+  alias Beermusings.Comment
 
   plug :scrub_params, "post" when action in [:create, :update]
 
@@ -17,6 +18,7 @@ defmodule Beermusings.PostController do
     |> Repo.preload(:beer)
     |> Repo.preload(:votes)
 
+    # Sorts by voted weight
     posts = Enum.sort_by posts, fn(post) -> List.foldl(post.votes, 0, fn(vote, acc) -> acc + vote.weight end) end, &>=/2
     render(conn, "index.html", posts: posts)
   end
@@ -48,7 +50,9 @@ defmodule Beermusings.PostController do
     |> Repo.preload(:comments)
     |> Repo.preload(:beer)
 
-    render(conn, "show.html", post: post)
+    comment_changeset = Comment.changeset(%Comment{})
+
+    render(conn, "show.html", post: post, comment_changeset: comment_changeset)
   end
 
   def edit(conn, %{"id" => id}) do

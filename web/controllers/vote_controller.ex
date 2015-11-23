@@ -26,14 +26,16 @@ defmodule Beermusings.VoteController do
     changeset = Ecto.Model.build(post, :votes)
     |> Vote.changeset(%{weight: weight})
 
+    status = if weight > 0 do "Up" else "Down" end
+
     case Repo.insert(changeset) do
       {:ok, _vote} ->
         conn
-        |> put_flash(:info, "Upvoted successfully.")
+        |> put_flash(:info, "#{status}voted successfully.")
         |> redirect(to: post_path(conn, :index))
       {:error, changeset} ->
         conn
-        |> put_flash(:error, "Failed to upvote.")
+        |> put_flash(:error, "Failed to ${status}vote.")
         |> redirect(to: post_path(conn, :index))
     end
   end

@@ -38,7 +38,7 @@ defmodule Beermusings.CommentController do
       {:ok, _comment} ->
         conn
         |> put_flash(:info, "Comment created successfully.")
-        |> redirect(to: post_path(conn, post_id, :index))
+        |> redirect(to: post_path(conn, :show, post_id))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
