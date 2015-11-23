@@ -15,6 +15,9 @@ defmodule Beermusings.PostController do
     posts = Repo.all(query)
     |> Repo.preload(:comments)
     |> Repo.preload(:beer)
+    |> Repo.preload(:votes)
+
+    posts = Enum.sort_by posts, fn(post) -> List.foldl(post.votes, 0, fn(vote, acc) -> acc + vote.weight end) end, &>=/2
     render(conn, "index.html", posts: posts)
   end
 

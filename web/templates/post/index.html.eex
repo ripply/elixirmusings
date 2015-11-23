@@ -8,6 +8,13 @@
         <a href="<%= post_vote_path(@conn, :upvote, post.id) %>">upvote</a>
         <a href="<%= post_vote_path(@conn, :downvote, post.id) %>">downvote</a>
       </td>
+      <td>
+        <%= if post.votes do %>
+        <%= List.foldl(post.votes, 0, fn(vote, acc) -> acc + vote.weight end) %>
+<%= else %>
+0
+        <% end %>
+      </td>
       <%= if post.beer do %>
       <td><%= post.beer.name %></td>
       <% else %>
