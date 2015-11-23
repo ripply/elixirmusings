@@ -26,6 +26,8 @@ defmodule Beermusings.Router do
     resources "/posts", PostController do
       post "/comment", CommentController, :create
       get "/comment", CommentController, :new
+      get "/vote", VoteController, :upvote
+      get "/downvote", VoteController, :downvote
     end
 
   end

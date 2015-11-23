@@ -4,6 +4,10 @@
   <tbody>
 <%= for post <- @posts do %>
     <tr>
+      <td>
+        <a href="<%= post_vote_path(@conn, :upvote, post.post_id) %>">upvote</a>
+        <a href="<%= post_vote_path(@conn, :downvote, post.post_id) %>">downvote</a>
+      </td>
       <%= if post.beer do %>
       <td><%= post.beer.name %></td>
       <% else %>
@@ -23,7 +27,7 @@
       </td>
     </tr>
 <% end %>
-  </tbody>
+  </tbody>--
 </table>
 
 <%= link "New post", to: post_path(@conn, :new) %>
