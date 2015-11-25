@@ -53,13 +53,17 @@ defmodule Beermusings.PostController do
     date(conn, %{"year" => year, "month" => month})
   end
 
-  def new(conn, _params) do
+  def get_beers() do
     query = from beer in Beer,
     order_by: beer.name
 
     beers = Repo.all(query)
+  end
+
+  def new(conn, _params) do
+    beers = get_beers()
     changeset = Post.changeset(%Post{})
-    render(conn, "new_beers.html", changeset: changeset, beers: beers)
+    render(conn, "new_beers.html", changeset: changeset, beers: beers, beer_id: nil)
   end
 
   def new(conn, %{"beer_id" => beer_id}) do
@@ -95,9 +99,11 @@ defmodule Beermusings.PostController do
   end
 
   def edit(conn, %{"id" => id}) do
+    beers = get_beers()
     post = Repo.get!(Post, id)
+    |> Repo.preload(:beer)
     changeset = Post.changeset(post)
-    render(conn, "edit.html", post: post, changeset: changeset)
+    render(conn, "edit.html", post: post, changeset: changeset, beers: beers, beer_id: post.beer_id)
   end
 
   def update(conn, %{"id" => id, "post" => post_params}) do

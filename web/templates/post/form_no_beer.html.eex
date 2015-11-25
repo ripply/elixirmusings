@@ -1,7 +1,7 @@
 <%= form_for @changeset, @action, fn f -> %>
 <select name="beer_id">
   <%= for beer <- @beers do %>
-      <option value="<%= beer.id %>"><%= beer.name %></option>
+      <option <%= if beer.id == @beer_id, do: "selected" %> value="<%= beer.id %>"><%= beer.name %></option>
   <% end %>
 </select>
 <%=  %>
