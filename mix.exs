@@ -18,7 +18,7 @@ defmodule Beermusings.Mixfile do
   def application do
     [mod: {Beermusings, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :tzdata]]
   end
 
   # Specifies which paths to compile per environment
@@ -34,6 +34,7 @@ defmodule Beermusings.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:timex, "~> 0.19.2"},
      {:cowboy, "~> 1.0"}]
   end
 end

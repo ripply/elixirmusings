@@ -1,6 +1,6 @@
 <h2>New post</h2>
 
 <%= render "form.html", changeset: @changeset,
-                        action: beer_post_path(@conn, :create, @beer_id) %>
+    action: beer_post_path(@conn, :create, @beer_id) %>
 
 <%= link "Back", to: post_path(@conn, :index) %>

@@ -1,0 +1,32 @@
+<%= form_for @changeset, @action, fn f -> %>
+<select name="beer_id">
+  <%= for beer <- @beers do %>
+      <option value="<%= beer.id %>"><%= beer.name %></option>
+  <% end %>
+</select>
+<%=  %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below:</p>
+      <ul>
+        <%= for {attr, message} <- f.errors do %>
+          <li><%= humanize(attr) %> <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :title, "Title", class: "control-label" %>
+    <%= text_input f, :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :content, "Content", class: "control-label" %>
+    <%= text_input f, :content, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

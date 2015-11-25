@@ -53,6 +53,15 @@ defmodule Beermusings.PostController do
     date(conn, %{"year" => year, "month" => month})
   end
 
+  def new(conn, _params) do
+    query = from beer in Beer,
+    order_by: beer.name
+
+    beers = Repo.all(query)
+    changeset = Post.changeset(%Post{})
+    render(conn, "new_beers.html", changeset: changeset, beers: beers)
+  end
+
   def new(conn, %{"beer_id" => beer_id}) do
     changeset = Repo.get(Beer, beer_id)
     |> Ecto.Model.build(:posts)
