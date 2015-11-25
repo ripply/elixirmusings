@@ -1,5 +1,6 @@
 defmodule Beermusings.PostController do
   use Beermusings.Web, :controller
+  use Timex
 
   import Ecto.Query, only: [from: 2]
 
@@ -10,9 +11,31 @@ defmodule Beermusings.PostController do
   plug :scrub_params, "post" when action in [:create, :update]
 
   def index(conn, _params) do
+    now = Date.local
+    date(conn, %{"year" => now.year, "month" => now.month})
+  end
+
+  def date(conn, %{"year" => year, "month" => month}) when is_integer(year) do
+    now = Date.local
+    start_time = Date.from({year, month, 1})
+    |> DateConvert.to_erlang_datetime
+    |> Ecto.DateTime.from_erl
+    # Note that specifying the day higher than is in the month will max out the day to that specific month's maximum
+    end_time = Date.from({{year, month, 40}, {23, 59, 59}})
+    |> DateConvert.to_erlang_datetime
+    |> Ecto.DateTime.from_erl
+    if (end_time.month != month) do
+      throw :error
+    end
+
+    IO.inspect(start_time)
+    IO.inspect(end_time)
+
     query = from post in Post,
+    where: post.inserted_at > ^start_time,#datetime_add(^Ecto.DateTime.utc, -1, "month"),
+    where: post.inserted_at < ^end_time,
     order_by: post.inserted_at
-    
+
     posts = Repo.all(query)
     |> Repo.preload(:comments)
     |> Repo.preload(:beer)
@@ -20,7 +43,14 @@ defmodule Beermusings.PostController do
 
     # Sorts by voted weight
     posts = Enum.sort_by posts, fn(post) -> List.foldl(post.votes, 0, fn(vote, acc) -> acc + vote.weight end) end, &>=/2
-    render(conn, "index.html", posts: posts)
+    render(conn, "index.html", posts: posts, month: month, year: year)
+  end
+
+  def date(conn, %{"year" => year, "month" => month}) do
+    IO.inspect(year)
+    {year, _} = Integer.parse(year)
+    {month, _} = Integer.parse(month)
+    date(conn, %{"year" => year, "month" => month})
   end
 
   def new(conn, %{"beer_id" => beer_id}) do

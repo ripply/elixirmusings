@@ -23,6 +23,7 @@ defmodule Beermusings.Router do
     end
     resources "/brewery", BreweryController
     resources "/comment", CommentController
+    get "/date/:year/:month", PostController, :date, as: :date
     resources "/posts", PostController do
       post "/comment", CommentController, :create
       get "/comment", CommentController, :new
