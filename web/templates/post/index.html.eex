@@ -36,5 +36,6 @@
 <% end %>
   </tbody>--
 </table>
+<%= render "chat.html", room_id: "#{@month}#{@year}" %>
 
 <%= link "New post", to: post_path(@conn, :new) %>

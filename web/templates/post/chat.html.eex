@@ -1,0 +1,5 @@
+<script>
+  window.room = "<%= @room_id %>"
+</script>
+<div id="messages"></div>
+<input id="chat-input" type="text"></input>

@@ -1126,6 +1126,8 @@ for (var i = 0; i < len; ++i) {
 // to also remove its path from "config.paths.watched".
 "use strict";
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
 require("deps/phoenix_html/web/static/js/phoenix_html");
 
 // Import local files
@@ -1133,7 +1135,9 @@ require("deps/phoenix_html/web/static/js/phoenix_html");
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-// import socket from "./socket"
+var _socket = require("./socket");
+
+var _socket2 = _interopRequireDefault(_socket);
 });
 
 ;require.register("web/static/js/socket", function(exports, require, module) {
@@ -1145,7 +1149,7 @@ require("deps/phoenix_html/web/static/js/phoenix_html");
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _depsPhoenixWebStaticJsPhoenix = require("deps/phoenix/web/static/js/phoenix");
@@ -1199,11 +1203,27 @@ var socket = new _depsPhoenixWebStaticJsPhoenix.Socket("/socket");
 socket.connect({ token: window.userToken });
 
 // Now that you are connected, you can join channels with a topic:
-var channel = socket.channel("topic:subtopic", {});
+if (!window.room) {
+    window.room = "lobby";
+}
+var channel = socket.channel("rooms:" + window.room, {});
+var chatInput = $("#chat-input");
+var messagesContainer = $("#messages");
+
+channel.on("new_msg", function (payload) {
+    messagesContainer.append("<br/>[" + Date() + "] " + payload.body);
+});
+
+chatInput.on("keypress", function (event) {
+    if (event.keyCode === 13) {
+        channel.push("new_msg", { body: chatInput.val() });
+        chatInput.val("");
+    }
+});
 channel.join().receive("ok", function (resp) {
-  console.log("Joined successfully", resp);
+    console.log("Joined successfully", resp);
 }).receive("error", function (resp) {
-  console.log("Unable to join", resp);
+    console.log("Unable to join", resp);
 });
 
 exports["default"] = socket;

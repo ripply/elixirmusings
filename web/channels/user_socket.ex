@@ -2,7 +2,7 @@ defmodule Beermusings.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "rooms:*", Beermusings.RoomChannel
+  channel "rooms:*", Beermusings.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
