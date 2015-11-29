@@ -16,7 +16,7 @@ defmodule Beermusings.Router do
   scope "/", Beermusings do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", PostController, :index
     resources "/beers", BeerController do
       post "/post", PostController, :create
       get "/post", PostController, :new
