@@ -1,7 +1,12 @@
 <h2>Posts for <%= @month %>/<%= @year %></h2> 
-
 <table class="table">
   <tbody>
+<tr>
+  <td>
+    <%= link "Back", to: date_path(@conn, :date, @prev.year, @prev.month) %>
+    <%= link "Next", to: date_path(@conn, :date, @next.year, @next.month) %>
+  </td>
+</tr>
 <%= for post <- @posts do %>
     <tr>
       <td>
@@ -34,8 +39,8 @@
       </td>
     </tr>
 <% end %>
-  </tbody>--
+  </tbody>
 </table>
-<%= render "chat.html", room_id: "#{@month}#{@year}" %>
+<%= render "chat.html", room_id: "#{@year}#{@month}" %>
 
 <%= link "New post", to: post_path(@conn, :new) %>

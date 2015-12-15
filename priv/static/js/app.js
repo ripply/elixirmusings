@@ -1214,6 +1214,14 @@ channel.on("new_msg", function (payload) {
     messagesContainer.append("<br/>[" + Date() + "] " + payload.body);
 });
 
+channel.on("join", function (payload) {
+    messagesContainer.append("<br/>JOIN");
+});
+
+channel.on("leave", function (payload) {
+    messagesContainer.append("<br/>JOIN");
+});
+
 chatInput.on("keypress", function (event) {
     if (event.keyCode === 13) {
         channel.push("new_msg", { body: chatInput.val() });

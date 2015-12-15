@@ -43,7 +43,10 @@ defmodule Beermusings.PostController do
 
     # Sorts by voted weight
     posts = Enum.sort_by posts, fn(post) -> List.foldl(post.votes, 0, fn(vote, acc) -> acc + vote.weight end) end, &>=/2
-    render(conn, "index.html", posts: posts, month: month, year: year)
+    now = Date.from({year, month, 0})
+    prev = Date.shift(now, months: -1)
+    next = Date.shift(now, months: 1)
+    render(conn, "index.html", posts: posts, month: month, year: year, prev: prev, next: next)
   end
 
   def date(conn, %{"year" => year, "month" => month}) do

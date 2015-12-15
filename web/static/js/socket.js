@@ -65,6 +65,14 @@ channel.on("new_msg", payload => {
     messagesContainer.append(`<br/>[${Date()}] ${payload.body}`)
 })
 
+channel.on("join", payload => {
+    messagesContainer.append(`<br/>JOIN`)
+})
+
+channel.on("leave", payload => {
+    messagesContainer.append(`<br/>JOIN`)
+})
+
 chatInput.on("keypress", event => {
     if(event.keyCode === 13){
         channel.push("new_msg", {body: chatInput.val()})
